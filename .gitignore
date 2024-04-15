@@ -1,0 +1,14 @@
+venv/
+env/
+.venv
+.env
+__pycache__/
+lib/
+lib64/
+var/
+downloads/
+build/
+dist/
+pip-log.txt
+pip-delete-this-directory.txt
+.vscode
