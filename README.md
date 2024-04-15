@@ -10,7 +10,7 @@ Clone this repository on your local machine:
 git clone https://github.com/sapphicart/sqli-fuzzer.git
 cd sqli-fuzzer
 ```
-Install requirements:
+Install required python libraries:
 ```python
 pip install -r requirements.txt
 ```
