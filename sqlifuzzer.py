@@ -3,10 +3,7 @@ from bs4 import BeautifulSoup
 import urllib3
 import sys
 import click
-from colorama import Fore
-
-# Temporarily disabling warnings
-urllib3.disable_warnings()
+from colorama import Fore, Back
 
 # URL = "https://redtiger.labs.overthewire.org/level1.php"
 
@@ -44,6 +41,10 @@ def url_fuzz(url, verify, wordlist):
             # Check for BOTH match from base.content and a 200 OK Status
             if re.content == base.content and re.status_code == 200:
                 print(f"{Fore.GREEN}[*] Success! {re.url} works!")
+            elif re.cookies != base.content:
+                print(f"{Fore.RED}[-] Error. The response did not match the base content.")
+            elif re.status_code != 200:
+                print(f"{Fore.RED}[-] Error. The server sent Status Code: {Fore.MAGENTA}{re.status_code}.")
             else:
                 print(f"{Fore.RED}[-] URL {re.url} not found.")
 
@@ -53,9 +54,9 @@ def input_fuzz():
 
 
 @click.command()
-@click.option('-u', '--url', prompt="Enter the URL to fuzz")
-@click.option('-v', '--verify', prompt="Should python verify SSL certificates?", default=True)
-@click.option('-w', '--wordlist', prompt="Enter the path to URL fuzzing wordlist or use default", default="url_fuzz.txt")
+@click.option('-u', '--url', help="The URL to fuzz")
+@click.option('-v', '--verify', help="SSL certificate verification. Default True", default=True)
+@click.option('-w', '--wordlist', help="/path/to/wordlist.txt", default="url_fuzz.txt")
 def main(url, verify, wordlist):
     print(f"""{Fore.LIGHTMAGENTA_EX}
 
@@ -73,7 +74,17 @@ def main(url, verify, wordlist):
                                                                                                  
 
 """)
-    
+    if verify == None or verify == True:
+        print(f"{Back.RED}{Fore.WHITE}WARNING!{Back.RESET}{Fore.RED} SSL verification check is set to True. This may cause errors in the fuzzing process.")
+        print(f"{Fore.YELLOW}To turn SSL verification off, use switch [-v False] in the arguments.")
+    elif verify == False:
+        print(f"{Back.RED}{Fore.WHITE}WARNING!{Back.RESET}{Fore.RED} SSL verification check is set to False. Suppressing SSL warnings.")
+        urllib3.disable_warnings()
+    else:
+        print(f"{Fore.RED}Not enough arguments.")
+        print(f"{Fore.LIGHTCYAN_EX}Exiting...")
+        sys.exit(0)
+
     try:
         get_links(url, verify)
         get_input(url, verify)
@@ -81,6 +92,10 @@ def main(url, verify, wordlist):
     except KeyboardInterrupt:
         print(f"{Fore.LIGHTCYAN_EX} User raised keyboard interrupt.")
         print(f"{Fore.LIGHTCYAN_EX} Exiting...")
+        sys.exit(0)
+    except requests.exceptions.SSLError:
+        print(f"{Fore.RED}SSL Verification failed. Try again with [-v False] switch.")
+        print(f"{Fore.LIGHTCYAN_EX}Exiting...")
         sys.exit(0)
     except Exception as e:
         print(e)

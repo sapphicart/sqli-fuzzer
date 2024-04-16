@@ -1,6 +1,5 @@
 requests
 bs4
 click
-sys
 urllib3
 colorama
