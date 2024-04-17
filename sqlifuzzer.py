@@ -41,7 +41,7 @@ def url_fuzz(url, verify, wordlist):
             # Check for BOTH match from base.content and a 200 OK Status
             if re.content == base.content and re.status_code == 200:
                 print(f"{Fore.GREEN}[*] Success! {re.url} works!")
-            elif re.cookies != base.content:
+            elif re.content != base.content:
                 print(f"{Fore.RED}[-] Error. The response did not match the base content.")
             elif re.status_code != 200:
                 print(f"{Fore.RED}[-] Error. The server sent Status Code: {Fore.MAGENTA}{re.status_code}.")
