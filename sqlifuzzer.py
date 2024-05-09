@@ -11,14 +11,21 @@ urllib3.disable_warnings()
 # URL = "https://redtiger.labs.overthewire.org/level1.php"
 
 links = []
+urls = []
 inputs = []
 
 def get_links(url, verify):
-    # Get links from URL and do not check for SSL (for now)
+    # Get links from URL and check for endpoints
+    hrefs = []
     re = requests.get(url, verify=verify)
     soup = BeautifulSoup(re.content, 'html.parser')
     for link in soup.find_all('a'):
-        links.append(link.get('href'))
+        hrefs.append(link.get('href'))
+        for href in hrefs:
+            if '?' in href:
+                links.append(href)
+            else:
+                urls.append(href)
 
 
 def get_input(url, verify):
