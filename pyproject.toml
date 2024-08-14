@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sqlifuzzer"
+version = "0.0.5"
+authors = [
+  { name="sapphicart", email="shrutipriya44@gmail.com" },
+]
+description = "Python script to fuzz for SQL injection vulnerabilities in URL and input parameters."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = {file = "LICENSE"}
+dependencies = [
+    "requests",
+    "bs4",
+    "click",
+    "urllib3",
+    "colorama",
+]
+keywords= ["python", "sqli-vulnerability-scanner", "sqlinjection"]
+
+[project.urls]
+Homepage = "https://github.com/sapphicart/sqli-fuzzer"
+Issues = "https://github.com/sapphicart/sqli-fuzzer/issues"
+
+[project.scripts]
+sqlifuzzer = "sqlifuzzer:main"

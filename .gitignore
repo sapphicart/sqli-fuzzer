@@ -12,3 +12,4 @@ dist/
 pip-log.txt
 pip-delete-this-directory.txt
 .vscode
+*.egg-info

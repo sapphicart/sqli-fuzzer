@@ -109,4 +109,7 @@ def main(url, verify, wordlist):
 
 
 if __name__=="__main__":
-    main()
+    if len(sys.argv) == 1:
+        main(['--help'])
+    else:
+        main()
