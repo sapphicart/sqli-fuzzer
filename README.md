@@ -9,8 +9,6 @@
   <a href="#license">License</a>
 </p>
 
-<img align="center">![alt text](example.png)</img>
-
 ## Summary
 
 SQLi Fuzzer is a tool made for personal use. This tool fuzzes for URL or input parameters vulnerable to SQL Injections. The file `url_fuzz.txt` currently contains basic `ORDER BY` SQL queries passed in URL parameter. The default wordlist includes SQL queries in plaintext, url encoding and hex encoding.
@@ -21,22 +19,19 @@ SQLi Fuzzer is a tool made for personal use. This tool fuzzes for URL or input p
 - Python 3.xx
 
 ## Installation
-A few Python libraries are required for successfully usage. These libraries can be downloaded with the `requirements.txt` file.
+There are two ways to install `sqlifuzzer`:
+
+Install the tool directly with `pip`
 ```bash
-# Clone this repository
-$ git clone https://github.com/sapphicart/sqli-fuzzer.git
-
-# Change directories
-$ cd sqli-fuzzer
-
-# Install required dependencies
-pip install -r requirements.txt
+pip install sqlifuzzer
 ```
+
+Or, you can build from source. Download the latest [release](https://github.com/sapphicart/sqli-fuzzer/releases).
 
 ## Usage 
 Use the `--help` switch to read the `OPTIONS` available.
 ```bash
-$ python sqlifuzzer.py --help
+$ sqlifuzzer --help
 Usage: sqlifuzzer.py [OPTIONS]
 
 Options:
@@ -47,14 +42,19 @@ Options:
 ```
 Example:
 ```bash
-$ python sqlifuzzer.py -u https://redtiger.labs.overthewire.org/level1.php -v False -w url_fuzz.txt
+$ sqlifuzzer -u https://redtiger.labs.overthewire.org/level1.php -v False -w url_fuzz.txt
 ```
 
-## To Do
+## Notes
+A generic wordlist named `url_fuzz.txt` is available in the source code. You can use this wordlist or create your own!
+
 Upcoming features:
 - Input parameters fuzzing
 - HTTP Verbs (GET, POST, PUT) fuzzing
 - Diverse wordlist
+
+## Contributions
+All contributions are welcome. Just fork this repository, make your changes and open a pull request!
 
 ## License
 Distributed under [MIT](LICENSE) License.
