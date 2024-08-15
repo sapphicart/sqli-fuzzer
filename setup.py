@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name = 'sqlifuzzer',
-    version = '0.0.5',
+    version = '0.0.6',
     author = 'Shruti Priya',
     author_email = 'shrutipriya44@gmail.com',
     license = 'MIT Liecense',
